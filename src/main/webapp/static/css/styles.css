@@ -1,0 +1,176 @@
+html, body {
+	background: #FFFFFF !important;
+	font-family: Helvetica, Arial, Sans !important;
+}
+
+body {
+	width: 900px;
+	padding: 0 30px;
+	margin: auto;
+}
+
+#header {
+	padding: 10px 0;
+	position: relative;
+}
+
+#logo {
+	display: block;
+	height: 93px;
+	width: 318px;
+	margin-left: 20px;
+	color: #006B8F;
+	background-image: url('../img/framezap-logo-full-orig.png');
+}
+
+#logo span {
+	color: #f00;
+	font-size: 70%;
+}
+
+#logo a {
+	text-decoration: none;
+}
+
+#logo a:link {text-decoration: none; color: #006B8F;}
+#logo a:visited {text-decoration: none; color: #006B8F;}
+#logo a:active {text-decoration: none; color: #006B8F;}
+#logo a:hover {text-decoration: none; color: #006B8F;}
+
+#tools {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	right: 0;
+	top: 15px;
+	right: 20px;
+}
+
+#tools a {
+	color: #006B8F;
+	text-decoration: none;
+}
+
+
+#main {
+	background: #E6F3FF;
+	background: -webkit-gradient(linear, left top, left 30%, from(#D6EBFF), to(#E6F3FF));
+	/*
+	-webkit-border-radius: 16px;
+	-moz-border-radius: 16px;
+	*/
+	padding: 20px;
+}
+
+/** Post **/
+
+.entry .entry-title {
+	margin: 0;
+}
+
+.entry .entry-title a {
+	font-size: 36px;
+	color: #006B8F;
+	text-decoration: none;
+}
+
+.entry .entry-title a:hover {text-decoration: none; color: #6699FF;}
+
+
+.entry .entry-metadata {
+	color: #BAC36E;
+	display: block;
+	font-size: 70%;
+	display: inline-block;
+}
+
+.entry-author {
+	font-size: 120%;
+	font-weight: normal;
+}
+
+.entry-author a.link {text-decoration: underline;}
+.entry-author a.visited {text-decoration: none;}
+
+.entry .entry-metadata a {
+	color: #9FA85D;
+}
+
+.entry .entry-content {
+	position: relative;
+	background: #fff;
+	padding: 10px;
+	margin: 10px 0 20px 0;
+}
+
+.entry-peeps {
+	position: relative;
+	margin: 10px 0 50px 0;
+}
+
+.entry-peep {
+	position: relative;
+	background: #C2E0FF;
+	padding: 5px;
+	font-size: 14px;
+	margin: 10px 0 20px 0;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-box-shadow: 0 2px 0 #BBBBBB;
+}
+
+.entry-peep-title {
+	font-size: 16px;
+	color: #006B8F;
+	text-decoration: none;
+}
+
+.entry-peep-by {
+	font-size: 12px;
+	color: #006B8F;
+}
+
+.entry-peep a.link {text-decoration: underline; color: #006B8F;}
+.entry-peep a.visited {text-decoration: none;}
+
+
+.entry .about {
+	text-indent: -999em;
+	display: block;
+	width: 0; 
+	height: 0; 
+	border-left: 10px solid transparent; 
+	border-right: 10px solid transparent;
+	border-bottom: 10px solid #fff;
+	border-top: 0;
+	position: absolute;
+	top: -6px;
+	left: 24px;
+}
+
+
+.entry-share {
+	position: relative;
+	font-size: 14px;
+}
+
+textarea#content {
+	width: 98%;
+	height: 40px;
+	border: 3px solid #85C2FF;
+	padding: 5px;
+	font-family: Tahoma, sans-serif;
+}
+
+.peep-button {
+  color: #000;
+  border: 1px solid #BBBEA8;
+  font-weight: bold;
+  background: #EAEED2;
+  padding: 3px;
+}
+
+IMG.vmiddle {
+	vertical-align: middle;
+}
