@@ -69,7 +69,8 @@ public class FileServlet extends AbstractServletHelper {
 		}
 		File file = new File(filename);
 		
-		response.setHeader("Content-Type", type);
+//		response.setHeader("Content-Type", type);
+		response.setContentType(type);
 //		response.setHeader("Content-Length", String.valueOf(file.length()));
 		response.setHeader("Transfer-Encoding", "chunked");
 		response.setHeader("Content-Disposition", "inline; filename=\"" + file.getName() + "\"");

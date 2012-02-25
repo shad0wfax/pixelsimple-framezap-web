@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import com.pixelsimple.commons.media.Container;
 import com.pixelsimple.commons.media.MediaInspector;
 import com.pixelsimple.commons.media.exception.MediaException;
+import com.pixelsimple.framezap.web.util.AppUtil;
 
 /**
  * Servlet implementation class FileServlet
@@ -28,6 +29,7 @@ public class StaticFileServlet extends AbstractServletHelper {
 	protected void handle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		String filename = URLDecoder.decode(request.getPathInfo(), "UTF-8");
 		String inputFilePath = request.getParameter("inputPath");
+		String type = request.getParameter("mediaType");
 		
 		LOG.debug("handle::inputFilePath = {} ", inputFilePath);
 //		System.out.println("sysout::handle::inputFilePath =" + inputFilePath);
@@ -35,32 +37,14 @@ public class StaticFileServlet extends AbstractServletHelper {
 		if (inputFilePath == null)
 			return;
 		
-		String type = null;
-		
-		// TODO: what is the best way to get the media type? The container format can be wrong :(
-//		try {
-//			Container container = new MediaInspector().createMediaContainer(inputFilePath);
-//			String format = container.getContainerFormat();
-//			
-//			if (format.indexOf(",") != -1) {
-//				format = format.substring(0, format.indexOf(","));
-//			}
-//			type = "video/" + format;
-//
-//			LOG.debug("content type = {} ", type);
-//
-//			
-//		} catch (MediaException e) {
-//			LOG.error("{}", e);
-//			throw new ServletException("Invalid input file");
-//		}
-		
-		
-		type = "video/" + inputFilePath.substring(inputFilePath.lastIndexOf(".") + 1);
+		if (type == null) {
+			type = AppUtil.getType(inputFilePath);
+		}
 		LOG.debug("handle::content type = {} ", type);
 //		System.out.println("sysout::handle::content type =" + type);
 		
-		response.setHeader("Content-Type", type);
+//		response.setHeader("Content-Type", type);
+		response.setContentType(type);
 //		response.setHeader("Content-Length", String.valueOf(file.length()));
 		response.setHeader("Transfer-Encoding", "chunked");
 		
