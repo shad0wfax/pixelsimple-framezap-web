@@ -60,4 +60,15 @@
     <url-pattern>/staticmedia</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <description></description>
+    <display-name>StaticFileServletWithRange</display-name>
+    <servlet-name>StaticFileServletWithRange</servlet-name>
+    <servlet-class>com.pixelsimple.framezap.web.servlet.StaticFileServletWithRange</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StaticFileServletWithRange</servlet-name>
+    <url-pattern>/staticmediawithrange</url-pattern>
+  </servlet-mapping>
+
 </web-app>
