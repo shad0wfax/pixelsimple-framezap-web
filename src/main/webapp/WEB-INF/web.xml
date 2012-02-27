@@ -40,13 +40,13 @@
 
   <servlet>
     <description></description>
-    <display-name>FileServlet</display-name>
-    <servlet-name>FileServlet</servlet-name>
-    <servlet-class>com.pixelsimple.framezap.web.servlet.FileServlet</servlet-class>
+    <display-name>TranscodingFileServlet</display-name>
+    <servlet-name>TranscodingFileServlet</servlet-name>
+    <servlet-class>com.pixelsimple.framezap.web.servlet.TranscodingFileServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>FileServlet</servlet-name>
-    <url-pattern>/media</url-pattern>
+    <servlet-name>TranscodingFileServlet</servlet-name>
+    <url-pattern>/transcodingmedia</url-pattern>
   </servlet-mapping>
 
   <servlet>

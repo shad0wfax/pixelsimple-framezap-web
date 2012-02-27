@@ -17,7 +17,7 @@
 
 	<%
 		String inputFile = request.getParameter("inputPath");	
-		String type = AppUtil.getType(inputFile);
+		String type = AppUtil.getMimeType(inputFile);
 	%>
 	
 	<p>Currently Streaming/Serving in progress for the file <%= inputFile %></p>

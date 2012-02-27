@@ -10,9 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.pixelsimple.commons.media.Container;
-import com.pixelsimple.commons.media.MediaInspector;
-import com.pixelsimple.commons.media.exception.MediaException;
 import com.pixelsimple.framezap.web.util.AppUtil;
 
 /**
@@ -21,7 +18,7 @@ import com.pixelsimple.framezap.web.util.AppUtil;
 public class StaticFileServlet extends AbstractServletHelper {
 	private static final long serialVersionUID = 1L;
 	// Should also init the logging here. Verify if this can lead to other issues?
-	private static final Logger LOG = LoggerFactory.getLogger(FileServlet.class);
+	private static final Logger LOG = LoggerFactory.getLogger(StaticFileServlet.class);
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -38,7 +35,7 @@ public class StaticFileServlet extends AbstractServletHelper {
 			return;
 		
 		if (type == null) {
-			type = AppUtil.getType(inputFilePath);
+			type = AppUtil.getMimeType(inputFilePath);
 		}
 		LOG.debug("handle::content type = {} ", type);
 //		System.out.println("sysout::handle::content type =" + type);

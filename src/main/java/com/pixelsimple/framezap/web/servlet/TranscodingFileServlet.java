@@ -21,15 +21,15 @@ import com.pixelsimple.transcoder.queue.TranscoderQueue;
 /**
  * Servlet implementation class FileServlet
  */
-public class FileServlet extends AbstractServletHelper {
+public class TranscodingFileServlet extends AbstractServletHelper {
 	private static final long serialVersionUID = 1L;
 	// Should also init the logging here. Verify if this can lead to other issues?
-	private static final Logger LOG = LoggerFactory.getLogger(FileServlet.class);
+	private static final Logger LOG = LoggerFactory.getLogger(TranscodingFileServlet.class);
 
     /**
      * Default constructor. 
      */
-    public FileServlet() {
+    public TranscodingFileServlet() {
         // TODO Auto-generated constructor stub
     }
 
