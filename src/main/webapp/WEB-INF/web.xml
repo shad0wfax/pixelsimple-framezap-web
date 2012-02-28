@@ -49,16 +49,18 @@
     <url-pattern>/transcodingmedia</url-pattern>
   </servlet-mapping>
 
-  <servlet>
-    <description></description>
-    <display-name>StaticFileServlet</display-name>
-    <servlet-name>StaticFileServlet</servlet-name>
-    <servlet-class>com.pixelsimple.framezap.web.servlet.StaticFileServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>StaticFileServlet</servlet-name>
-    <url-pattern>/staticmedia</url-pattern>
-  </servlet-mapping>
+	<!-- 
+	  <servlet>
+	    <description></description>
+	    <display-name>StaticFileServlet</display-name>
+	    <servlet-name>StaticFileServlet</servlet-name>
+	    <servlet-class>com.pixelsimple.framezap.web.servlet.StaticFileServlet</servlet-class>
+	  </servlet>
+	  <servlet-mapping>
+	    <servlet-name>StaticFileServlet</servlet-name>
+	    <url-pattern>/staticmedia</url-pattern>
+	  </servlet-mapping>
+	-->
 
   <servlet>
     <description></description>
@@ -68,7 +70,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>StaticFileServletWithRange</servlet-name>
-    <url-pattern>/staticmediawithrange</url-pattern>
+    <url-pattern>/staticmedia</url-pattern>
   </servlet-mapping>
 
 </web-app>

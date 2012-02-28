@@ -26,7 +26,7 @@ public class StaticFileServlet extends AbstractServletHelper {
 	protected void handle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		String filename = URLDecoder.decode(request.getPathInfo(), "UTF-8");
 		String inputFilePath = request.getParameter("inputPath");
-		String type = request.getParameter("mediaType");
+		String type = request.getParameter("contentType");
 		
 		LOG.debug("handle::inputFilePath = {} ", inputFilePath);
 //		System.out.println("sysout::handle::inputFilePath =" + inputFilePath);

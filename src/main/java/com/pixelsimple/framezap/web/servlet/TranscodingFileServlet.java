@@ -45,8 +45,8 @@ public class TranscodingFileServlet extends AbstractServletHelper {
 		}
 		
 //		String filename = URLDecoder.decode(request.getPathInfo(), "UTF-8");
-		String filename = request.getParameter("vidName");
-		String type = (String) request.getParameter("mediaType");
+		String filename = request.getParameter("mediaPath");
+		String type = (String) request.getParameter("contentType");
 		String handleId = (String) request.getParameter("handleId");
 		
 		Handle handle = new Handle(handleId);
@@ -65,6 +65,7 @@ public class TranscodingFileServlet extends AbstractServletHelper {
 		if (status == null) {
 			// Might indicate that transcoding has already completed!. So just serve the file
 			serveStaticFile(filename, request, response);
+			response.sendRedirect("/static_media.jsp?inputPath=" + filename);
 			return;
 		}
 		File file = new File(filename);

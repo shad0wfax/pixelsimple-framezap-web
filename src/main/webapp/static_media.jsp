@@ -1,33 +1,56 @@
-<%@page import="java.util.Collection"%>
-<%@page import="com.pixelsimple.appcore.Registrable"%>
-<%@page import="com.pixelsimple.appcore.RegistryService"%>
-<%@page import="com.pixelsimple.transcoder.profile.Profile"%>
-<%@page import="java.util.Map"%>
-
+<%@page import="com.pixelsimple.appcore.media.MediaType"%>
+<%@page import="com.pixelsimple.commons.media.Container"%>
 <%@page import="com.pixelsimple.framezap.web.util.AppUtil"%><html>
 <head>
-	<link rel="stylesheet" href="css/styles.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="static/css/styles.css" type="text/css" media="screen" />
 	
 	<script type="text/javascript">
 	
 	</script>
 </head>
 <body>
-<h2>Serving Static file!</h2>
+     <div id="header" align="center"> 
+         <div id="logo"></div> 
+     </div> 
 
-	<%
-		String inputFile = request.getParameter("inputPath");	
-		String type = AppUtil.getType(inputFile);
-	%>
-	
-	<p>Currently Streaming/Serving in progress for the file <%= inputFile %></p>
-	<div class="older-entries">    
-			<div class="entry"> 
-				<video controls>
-					<source src="staticmedia?inputPath=<%= inputFile %>&mediaType=<%= type %>" type="<%= type %>"></source>
-					<%-- <source src="/media?vidName=C:/Data/video_test/HTTYD_1-021_poor.mov&mediaType=video/webm&handleId=not_Existing" /> --%>
-				</video>
-			</div> 
-	</div> 
+	<div id="main" align="center">
+
+		<%
+			String inputFile = request.getParameter("inputPath");	
+			Container container = AppUtil.getMediaContainer(inputFile);
+			String type = AppUtil.getMimeType(inputFile, container);
+			boolean isVideo = (container.getMediaType() == MediaType.VIDEO) ? true : false;
+		%>
+		
+		<h2>Serving Static file of Type - <%= (isVideo ? "Video" : "Audio") %> </h2>
+		
+		<p>Currently Streaming/Serving in progress for the file <%= inputFile %></p>
+		<div class="older-entries">    
+				<div class="entry"> 
+				
+				<%
+				
+					if (isVideo) {
+				%>
+					<video controls>
+						<source src="staticmedia?inputPath=<%= inputFile %>&contentType=<%= type %>" type="<%= type %>"></source>
+					</video>
+				<%
+				
+					} else {
+				%>
+					
+					<audio controls>
+						<source src="staticmedia?inputPath=<%= inputFile %>&contentType=<%= type %>" type="<%= type %>"></source>
+					</audio>
+					
+				<%
+				
+					}
+				%>
+					
+				</div> 
+		</div>
+	</div>	 
 </body>
 </html>

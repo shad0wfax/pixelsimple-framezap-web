@@ -16,9 +16,11 @@ import org.slf4j.LoggerFactory;
 
 import com.pixelsimple.appcore.Registrable;
 import com.pixelsimple.appcore.RegistryService;
+import com.pixelsimple.appcore.media.MediaType;
 import com.pixelsimple.commons.media.Container;
 import com.pixelsimple.commons.media.MediaInspector;
 import com.pixelsimple.commons.util.StringUtils;
+import com.pixelsimple.framezap.web.util.AppUtil;
 import com.pixelsimple.transcoder.Handle;
 import com.pixelsimple.transcoder.Transcoder;
 import com.pixelsimple.transcoder.TranscoderOutputSpec;
@@ -64,9 +66,13 @@ public class TranscodeServlet extends HttpServlet {
 				Handle handle = transcoder.transcode(inputMedia, spec);
 				request.setAttribute("transcoding", "inprogress");
 				
-				request.setAttribute("outputFileComputed", handle.getOutputFileCreated());
-				request.setAttribute("mediaType", "video/" + profile.getContainerFormat());
+				String outFile = handle.getOutputFileCreated();
+				String type = AppUtil.getMimeType(outFile, inputMedia);
+				
+				request.setAttribute("outputFileComputed", outFile);
+				request.setAttribute("contentType", type);
 				request.setAttribute("handleId", handle.getHandleId());
+				request.setAttribute("mediaType", inputMedia.getMediaType());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				LOG.error("{}", e);

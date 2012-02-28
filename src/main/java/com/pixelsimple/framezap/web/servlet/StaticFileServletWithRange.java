@@ -111,7 +111,7 @@ public class StaticFileServletWithRange extends HttpServlet {
         // Validate the requested file ------------------------------------------------------------
 
 		String inputFilePath = request.getParameter("inputPath");
-		String type = request.getParameter("mediaType");
+		String type = request.getParameter("contentType");
 		
 		LOG.debug("processRequest::inputFilePath and type = {}, {} ", inputFilePath, type);
 
