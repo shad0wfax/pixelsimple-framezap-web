@@ -19,17 +19,11 @@ public class AppUtil {
 	// TODO: Expensive call?? - validate the need for doing an expensive ffmpeg call? - Use a better strategy
 	public static String getMimeType(String inputFilePath) {
 		
-		// TODO: what is the best way to get the media type? The container format can be wrong :(
-		MediaType mediaType = null;
-		Container container = null;
-		container = getMediaContainer(inputFilePath);
+		Container container = getMediaContainer(inputFilePath);
 		
 		if (container == null)
 			return "";
-		mediaType = container.getMediaType();
-
-		LOG.debug("getMimeType::mediaType = {} ", mediaType);
-				
+		
 //		String extension = inputFilePath.substring(inputFilePath.lastIndexOf(".") + 1); 
 //				
 //		Mime mime = (Mime) RegistryService.getRegisteredEntry(Registrable.SUPPORTED_MIME_TYPES);		
@@ -57,8 +51,8 @@ public class AppUtil {
 	}
 
 	public static Container getMediaContainer(String inputFilePath) {
-		
 		Container container = null;
+		
 		try {
 			container = new MediaInspector().createMediaContainer(inputFilePath);
 			return container;
