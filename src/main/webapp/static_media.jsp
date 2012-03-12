@@ -35,6 +35,8 @@
 				media = "Photo";
 			}
 			
+			request.setAttribute("MEDIA_TYPE", media);
+			request.setAttribute("FILE_TYPE", type);
 		%>
 		
 		<h2>Serving Static file of Type - <%= media %> </h2>
@@ -43,11 +45,11 @@
 		<div class="older-entries">    
 				<div class="entry"> 
 				
-				<%
+<%-- 				<%
 				
 					if (isVideo) {
 				%>
-					<video controls>
+					<video controls width="640" height="480">
 						<source src="staticmedia?inputPath=<%= inputFile %>&contentType=<%= type %>" type="<%= type %>"></source>
 					</video>
 				<%
@@ -63,7 +65,20 @@
 				<%
 					}
 				%>
-					
+ --%>				
+ 
+ 				<%
+ 					// TODO: Change the damn logic below :)
+ 					if (container.getFilePathWithName().endsWith(".flv") || container.getFilePathWithName().endsWith(".f4v")) {
+ 				%>
+ 					<jsp:include page="static_media_flash_fragment.jsp" flush="true"></jsp:include>
+				<%
+					}  else {
+				%>
+ 					<jsp:include page="static_media_html5_fragment.jsp" flush="true"></jsp:include>
+				<%
+					}
+				%>
 				</div> 
 		</div>
 	</div>	 
