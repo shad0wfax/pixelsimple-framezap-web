@@ -22,6 +22,10 @@
 			//var url = "/media?mediaPath=" + input + "&contentType=video/webm&handleId=not_Existing";
 			window.location = url;
 		}
+		
+		function openFileSelector() {
+			window.open('select_file.jsp');
+		}
 	
 	</script>
 </head>
@@ -42,14 +46,20 @@
 		</p>
 		
 		<p>
-		  <strong>File to stream: </strong><br/>
-		  <input type="text" id="streamFileName" name="streamFileName" value="C:/Data/video_test/HTTYD_1-021_poor.mov" size="80" width="600" />
+		  <strong>Choose a file to stream:</strong><br/>
+		  <input type="button" id="selectFile" name="selectFile" value="Select A File To Stream" onclick="openFileSelector()"/>
 		  <!--  
 		  <input type="file" id="streamFileNameBrowse" name="streamFileName" value="C:/Data/video_test/HTTYD_1-021_poor.mov" size="80" width="600" />
 		   -->
 		</p>
-		
+
 		<p>
+			<strong>OR</strong><br/>
+			Provide the complete path to the file and click Play
+		</p>
+
+		<p>
+			<input type="text" id="streamFileName" name="streamFileName" value="C:/Data/video_test/HTTYD_1-021_poor.mov" size="80" width="600" />
 			<input type="button" value="Play" name="Play" onclick="stream()" />
 		</p>	
 		

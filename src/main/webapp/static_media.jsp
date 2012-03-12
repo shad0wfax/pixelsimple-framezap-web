@@ -19,10 +19,25 @@
 			String inputFile = request.getParameter("inputPath");	
 			Container container = AppUtil.getMediaContainer(inputFile);
 			String type = AppUtil.getMimeType(inputFile, container);
-			boolean isVideo = (container.getMediaType() == MediaType.VIDEO) ? true : false;
+			boolean isVideo = false;
+			boolean isAudio = false;
+			boolean isPhoto = false;
+			String media = null;
+			
+			if (container.getMediaType() == MediaType.VIDEO) {
+				isVideo = true;
+				media = "Video";
+			} else if (container.getMediaType() == MediaType.AUDIO) {
+				isAudio = true;
+				media = "Audio";
+			} else if (container.getMediaType() == MediaType.PHOTO) {
+				isPhoto = true;
+				media = "Photo";
+			}
+			
 		%>
 		
-		<h2>Serving Static file of Type - <%= (isVideo ? "Video" : "Audio") %> </h2>
+		<h2>Serving Static file of Type - <%= media %> </h2>
 		
 		<p>Currently Streaming/Serving in progress for the file <%= inputFile %></p>
 		<div class="older-entries">    
@@ -36,16 +51,16 @@
 						<source src="staticmedia?inputPath=<%= inputFile %>&contentType=<%= type %>" type="<%= type %>"></source>
 					</video>
 				<%
-				
-					} else {
+					} else if (isAudio) {
 				%>
-					
 					<audio controls>
 						<source src="staticmedia?inputPath=<%= inputFile %>&contentType=<%= type %>" type="<%= type %>"></source>
 					</audio>
-					
 				<%
-				
+					}  else if (isPhoto) {
+				%>
+					<img src="staticmedia?inputPath=<%= inputFile %>&contentType=<%= type %>" />
+				<%
 					}
 				%>
 					
