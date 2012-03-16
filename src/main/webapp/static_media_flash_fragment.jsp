@@ -36,8 +36,7 @@
         var wmodeOptions = ["direct", "opaque", "transparent", "window"];
         if (parameters.hasOwnProperty("wmode"))
         {
-        	if (wmodeOptions.indexOf(parameters.wmode) >= 0)
-        	{
+        	if (wmodeOptions.indexOf(parameters.wmode) >= 0) {
         		wmodeValue = parameters.wmode;
         	}	            	
         	delete parameters.wmode;
@@ -80,6 +79,6 @@
 </head>
 <div id="StrobeMediaPlayback">
 	<p>
-		No support for html5 flv video in this browser.
+		No support for flash video in this browser.
 	</p>
 </div>

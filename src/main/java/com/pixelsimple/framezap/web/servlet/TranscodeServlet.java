@@ -67,7 +67,7 @@ public class TranscodeServlet extends HttpServlet {
 				request.setAttribute("transcoding", "inprogress");
 				
 				String outFile = handle.getOutputFileCreated();
-				String type = AppUtil.getMimeType(outFile, inputMedia);
+				String type = AppUtil.getMimeType(inputMedia);
 				
 				request.setAttribute("outputFileComputed", outFile);
 				request.setAttribute("contentType", type);

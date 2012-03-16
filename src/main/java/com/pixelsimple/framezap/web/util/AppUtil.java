@@ -32,20 +32,17 @@ public class AppUtil {
 //		LOG.debug("getMimeType::mime type from file = {} => {} ", inputFilePath, type);
 //
 //		return type;
-		return getMimeType(inputFilePath, container);
+		return getMimeType(container);
 		
 	}
 	
-	// TODO: Expensive call?? - validate the need for doing an expensive ffmpeg call? - Use a better strategy
-	public static String getMimeType(String inputFilePath, Container container) {
+	public static String getMimeType(Container container) {
 		MediaType mediaType = container.getMediaType();
-		
-		String extension = inputFilePath.substring(inputFilePath.lastIndexOf(".") + 1); 
-		
-		Mime mime = (Mime) RegistryService.getRegisteredEntry(Registrable.SUPPORTED_MIME_TYPES);		
+		Mime mime = (Mime) RegistryService.getRegisteredEntry(Registrable.SUPPORTED_MIME_TYPES);
+		String extension = container.getFormatFromFileExtension() == null ? "" : container.getFormatFromFileExtension();
 		String type = mime.getMimeType(extension, mediaType);
 		
-		LOG.debug("getMimeType::mime type from file = {} => {} ", inputFilePath, type);
+		LOG.debug("getMimeType::mime type from container = {} => {} ", container, type);
 
 		return type;
 	}

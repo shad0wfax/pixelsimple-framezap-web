@@ -18,7 +18,7 @@
 		<%
 			String inputFile = request.getParameter("inputPath");	
 			Container container = AppUtil.getMediaContainer(inputFile);
-			String type = AppUtil.getMimeType(inputFile, container);
+			String type = AppUtil.getMimeType(container);
 			boolean isVideo = false;
 			boolean isAudio = false;
 			boolean isPhoto = false;
