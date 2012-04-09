@@ -73,4 +73,15 @@
     <url-pattern>/staticmedia</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <description></description>
+    <display-name>LiveStreamingServlet</display-name>
+    <servlet-name>LiveStreamingServlet</servlet-name>
+    <servlet-class>com.pixelsimple.framezap.web.servlet.LiveStreamingServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LiveStreamingServlet</servlet-name>
+    <url-pattern>/hls</url-pattern>
+  </servlet-mapping>
+
 </web-app>

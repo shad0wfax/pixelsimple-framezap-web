@@ -63,8 +63,8 @@ public class TranscodingFileServlet extends AbstractServletHelper {
 		}
 		
 		if (status == null) {
-			// Might indicate that transcoding has already completed!. So just serve the file
-			serveStaticFile(filename, request, response);
+			// Might indicate that transcoding has already completed!. So just serve the file.
+			serveStaticFile(filename, request, response, true);
 			response.sendRedirect("/static_media.jsp?inputPath=" + filename);
 			return;
 		}

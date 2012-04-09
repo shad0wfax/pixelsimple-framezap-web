@@ -50,7 +50,8 @@ public class StaticFileServlet extends AbstractServletHelper {
 		
 		request.setAttribute("serving", "inprogress");
 		
-		serveStaticFile(inputFilePath, request, response);
+		// Assume the content length of the file is unknown (it might be getting written)
+		serveStaticFile(inputFilePath, request, response, false);
 		
 	}
 

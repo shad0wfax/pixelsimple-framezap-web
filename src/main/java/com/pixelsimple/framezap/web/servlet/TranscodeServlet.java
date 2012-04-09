@@ -16,12 +16,12 @@ import org.slf4j.LoggerFactory;
 
 import com.pixelsimple.appcore.Registrable;
 import com.pixelsimple.appcore.RegistryService;
-import com.pixelsimple.appcore.media.MediaType;
 import com.pixelsimple.commons.media.Container;
 import com.pixelsimple.commons.media.MediaInspector;
 import com.pixelsimple.commons.util.StringUtils;
 import com.pixelsimple.framezap.web.util.AppUtil;
 import com.pixelsimple.transcoder.Handle;
+import com.pixelsimple.transcoder.HlsTranscoder;
 import com.pixelsimple.transcoder.Transcoder;
 import com.pixelsimple.transcoder.TranscoderOutputSpec;
 import com.pixelsimple.transcoder.profile.Profile;
@@ -62,8 +62,19 @@ public class TranscodeServlet extends HttpServlet {
 				MediaInspector inspector = new MediaInspector();
 				Container inputMedia = null;
 				inputMedia = inspector.createMediaContainer(inputFilePath);
-				Transcoder transcoder = new Transcoder();
-				Handle handle = transcoder.transcode(inputMedia, spec);
+				Handle handle = null;
+				
+				if (profile.isHlsProfile()) {
+					spec.addHlsPlaylistBaseUri(request.getPathInfo() + "staticmedia?inputPath=")
+						.addHlsPlaylistCreationCheckTimeInSec(8).addHlsSegmentTime(10);
+					
+					HlsTranscoder hlsTranscoder = new HlsTranscoder();
+					handle = hlsTranscoder.transcode(inputMedia, spec);
+				} else {
+					Transcoder transcoder = new Transcoder();
+					handle = transcoder.transcode(inputMedia, spec);
+				}
+
 				request.setAttribute("transcoding", "inprogress");
 				
 				String outFile = handle.getOutputFileCreated();

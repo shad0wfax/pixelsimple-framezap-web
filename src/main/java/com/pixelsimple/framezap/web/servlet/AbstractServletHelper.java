@@ -19,6 +19,8 @@ import org.slf4j.LoggerFactory;
  */
 abstract public class AbstractServletHelper extends HttpServlet {
 	private static final Logger LOG = LoggerFactory.getLogger(AbstractServletHelper.class);
+	private static final int DEFAULT_BUFFER_SIZE = 10240; // ..bytes = 10KB.
+
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -40,7 +42,8 @@ abstract public class AbstractServletHelper extends HttpServlet {
 	 * @param request
 	 * @param response
 	 */
-	protected void serveStaticFile(String filename, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void serveStaticFile(String filename, HttpServletRequest request, HttpServletResponse response, boolean setContentLength)
+			throws ServletException, IOException {
 		BufferedInputStream input = null;
 		BufferedOutputStream output = null;
 		
@@ -54,7 +57,11 @@ abstract public class AbstractServletHelper extends HttpServlet {
 			if (!file.isFile() || !file.exists()) {
 				throw new ServletException("Looks like the file to serve is not valid");
 			}
-			
+
+			if (setContentLength) {
+				response.setHeader("Content-Length", String.valueOf(file.length()));
+			}
+
 			input = new BufferedInputStream(new FileInputStream(file));
 		    output = new BufferedOutputStream(response.getOutputStream());
 		
@@ -65,7 +72,7 @@ abstract public class AbstractServletHelper extends HttpServlet {
 //		    
 //		    
 		    while (true) {
-		        byte[] bytes = new byte[8192];
+		        byte[] bytes = new byte[DEFAULT_BUFFER_SIZE];
 		        int readN = -1;
 	    		// keep reading until status become one of the above
 		        readN = input.read(bytes);
@@ -75,12 +82,6 @@ abstract public class AbstractServletHelper extends HttpServlet {
 		        	break;
 		        }
 	    	}
-
-		    
-		    
-		    
-		    
-		    
 		    
 			LOG.debug("Completed serving the file");
 		} finally {

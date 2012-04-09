@@ -38,9 +38,8 @@ public class AppUtil {
 	
 	public static String getMimeType(Container container) {
 		MediaType mediaType = container.getMediaType();
-		Mime mime = (Mime) RegistryService.getRegisteredEntry(Registrable.SUPPORTED_MIME_TYPES);
 		String extension = container.getFormatFromFileExtension() == null ? "" : container.getFormatFromFileExtension();
-		String type = mime.getMimeType(extension, mediaType);
+		String type = getMimeTypeFromExtension(extension, mediaType);
 		
 		LOG.debug("getMimeType::mime type from container = {} => {} ", container, type);
 
@@ -59,5 +58,13 @@ public class AppUtil {
 		}
 	}
 
+	public static String getMimeTypeFromExtension(String extension, MediaType mediaType) {
+		Mime mime = (Mime) RegistryService.getRegisteredEntry(Registrable.SUPPORTED_MIME_TYPES);
+		return mime.getMimeType(extension, mediaType);
+	}
 	
+	public static String getMimeTypeFromExtension(String extension) {
+		Mime mime = (Mime) RegistryService.getRegisteredEntry(Registrable.SUPPORTED_MIME_TYPES);
+		return mime.getMimeType(extension);
+	}
 }

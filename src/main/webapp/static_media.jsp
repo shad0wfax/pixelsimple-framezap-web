@@ -1,3 +1,6 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
+<%@page import="com.pixelsimple.commons.media.Video"%>
 <%@page import="com.pixelsimple.appcore.media.MediaType"%>
 <%@page import="com.pixelsimple.commons.media.Container"%>
 <%@page import="com.pixelsimple.framezap.web.util.AppUtil"%><html>
@@ -17,8 +20,24 @@
 
 		<%
 			String inputFile = request.getParameter("inputPath");	
-			Container container = AppUtil.getMediaContainer(inputFile);
-			String type = AppUtil.getMimeType(container);
+			Container container = null;
+			String type = null;
+			
+			// TODO: Change the damn logic below. :)
+			if (!inputFile.endsWith(".m3u8")) {
+				container = AppUtil.getMediaContainer(inputFile);
+				type = AppUtil.getMimeType(container);
+			} else {
+				// TODO: Son of a bitch way to do stuff. Clean this shit.
+				// TODO: Horrible assumption that media is of type Video :(. Have to fix these damn logic.
+				Video vid = new Video();
+				Map<String, String> atts = new HashMap<String, String>();
+				atts.put(Container.CONTAINER_FORMAT_ATTRIBUTES.filename.name(), inputFile);
+				vid.addContainerAttributes(atts);
+				container = vid;
+				type = AppUtil.getMimeTypeFromExtension("m3u8");
+			}
+			
 			boolean isVideo = false;
 			boolean isAudio = false;
 			boolean isPhoto = false;
@@ -73,7 +92,11 @@
  				%>
  					<jsp:include page="static_media_flash_fragment.jsp" flush="true"></jsp:include>
 				<%
-					}  else {
+					} else if (container.getFilePathWithName().endsWith(".m3u8")) {
+		 		%>
+	 				<jsp:include page="static_media_hls_fragment.jsp" flush="true"></jsp:include>
+				<%
+					} else {
 				%>
  					<jsp:include page="static_media_html5_fragment.jsp" flush="true"></jsp:include>
 				<%
