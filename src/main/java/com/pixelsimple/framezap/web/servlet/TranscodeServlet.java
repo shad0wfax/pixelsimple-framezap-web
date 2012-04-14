@@ -65,7 +65,7 @@ public class TranscodeServlet extends HttpServlet {
 				Handle handle = null;
 				
 				if (profile.isHlsProfile()) {
-					spec.addHlsPlaylistBaseUri(request.getPathInfo() + "staticmedia?inputPath=")
+					spec.addHlsPlaylistBaseUri("staticmedia?inputPath=")
 						.addHlsPlaylistCreationCheckTimeInSec(8).addHlsSegmentTime(10);
 					
 					HlsTranscoder hlsTranscoder = new HlsTranscoder();
