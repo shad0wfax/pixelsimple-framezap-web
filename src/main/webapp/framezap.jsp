@@ -4,9 +4,7 @@
 <%@page import="java.util.SortedSet"%>
 <%@page import="java.util.Collections"%>
 <%@page import="java.util.Collection"%>
-<%@page import="com.pixelsimple.appcore.Registrable"%>
-<%@page import="com.pixelsimple.appcore.RegistryService"%>
-<%@page import="com.pixelsimple.transcoder.profile.Profile"%>
+<%@page import="com.pixelsimple.appcore.registry.Registrableage import="com.pixelcom.pixelsimple.appcore.registry.RegistryServicet="com.pixelsimple.transcoder.profile.Profile"%>
 <%@page import="java.util.Map"%>
 <html>
 <head>

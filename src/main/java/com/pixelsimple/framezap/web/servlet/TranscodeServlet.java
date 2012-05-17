@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.pixelsimple.appcore.Registrable;
-import com.pixelsimple.appcore.RegistryService;
+import com.pixelsimple.appcore.registry.GenericRegistryEntry;
+import com.pixelsimple.appcore.registry.RegistryService;
 import com.pixelsimple.commons.media.Container;
 import com.pixelsimple.commons.media.MediaInspector;
 import com.pixelsimple.commons.util.StringUtils;
@@ -24,6 +24,7 @@ import com.pixelsimple.transcoder.Handle;
 import com.pixelsimple.transcoder.HlsTranscoder;
 import com.pixelsimple.transcoder.Transcoder;
 import com.pixelsimple.transcoder.TranscoderOutputSpec;
+import com.pixelsimple.transcoder.config.TranscoderRegistryKeys;
 import com.pixelsimple.transcoder.profile.Profile;
 
 /**
@@ -46,8 +47,9 @@ public class TranscodeServlet extends HttpServlet {
 		LOG.debug("Params : {}, {}", inputFilePath, outputFilePath);
 		LOG.debug("profileId : {}", profileId);
 		
+		GenericRegistryEntry entry =  RegistryService.getGenericRegistryEntry();
 		@SuppressWarnings("unchecked")
-		Map<String, Profile> profiles = (Map<String, Profile>) RegistryService.getRegisteredEntry(Registrable.MEDIA_PROFILES);
+		Map<String, Profile> profiles = (Map<String, Profile>) entry.getEntry(TranscoderRegistryKeys.MEDIA_PROFILES);
 		
 		Profile profile = profiles.get(profileId);
 		

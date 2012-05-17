@@ -3,10 +3,10 @@ package com.pixelsimple.framezap.web.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.pixelsimple.appcore.Registrable;
-import com.pixelsimple.appcore.RegistryService;
 import com.pixelsimple.appcore.media.MediaType;
 import com.pixelsimple.appcore.mime.Mime;
+import com.pixelsimple.appcore.registry.Registrable;
+import com.pixelsimple.appcore.registry.RegistryService;
 import com.pixelsimple.commons.media.Container;
 import com.pixelsimple.commons.media.MediaInspector;
 import com.pixelsimple.commons.media.exception.MediaException;
