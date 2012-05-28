@@ -1,3 +1,5 @@
+<%@page import="com.pixelsimple.transcoder.config.TranscoderRegistryKeys"%>
+<%@page import="com.pixelsimple.appcore.registry.GenericRegistryEntry"%>
 <%@page import="com.pixelsimple.appcore.media.MediaType"%>
 <%@page import="com.pixelsimple.framezap.web.util.AppUtil"%>
 <%@page import="java.util.TreeSet"%>
@@ -42,7 +44,10 @@
 
 	<%
 	
-		Map<String, Profile> profiles = (Map<String, Profile>) RegistryService.getRegisteredEntry(Registrable.MEDIA_PROFILES);
+		GenericRegistryEntry entry =  RegistryService.getGenericRegistryEntry();
+		
+		@SuppressWarnings("unchecked")
+		Map<String, Profile> profiles = (Map<String, Profile>) entry.getEntry(TranscoderRegistryKeys.MEDIA_PROFILES);
 		Collection<Profile> profileList = profiles.values();
 	%>
 	
