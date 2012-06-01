@@ -17,6 +17,9 @@ import org.slf4j.LoggerFactory;
 
 import com.pixelsimple.appcore.init.AppInitializer;
 import com.pixelsimple.appcore.init.BootstrapInitializer;
+import com.pixelsimple.commons.util.LogUtils;
+import com.pixelsimple.commons.util.OSUtils;
+import com.pixelsimple.commons.util.StringUtils;
 import com.pixelsimple.transcoder.init.TranscoderInitializer;
 
 /**
@@ -28,17 +31,22 @@ public class InitServlet extends HttpServlet {
 	// Should also init the logging here. Verify if this can lead to other issues?
 	private static final Logger LOG = LoggerFactory.getLogger(InitServlet.class);
 	
-	
+	private static final String FRAMEZAP_LOGBACK_CONFIG_FILE = "framezap-logConfig.xml";
+
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		LOG.debug("initializing servlet");
 		try {
+			// First thing to do is always init the log. This helps log even the app core bootstrapping. 
+			initLog();
+			
 			BootstrapInitializer initializer = new BootstrapInitializer();
 			Map<String, String> configMap = initializer.bootstrap();
 
 			AppInitializer appInitializer = new AppInitializer();
 
+			//Add all dependent initializers. A module initializing the app should know this.
 			// Depends on Transcode initializer
 			appInitializer.addModuleInitializable(new TranscoderInitializer());
 
@@ -54,11 +62,6 @@ public class InitServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        response.setContentType("text/html");
-//        response.setStatus(HttpServletResponse.SC_OK);
-//        response.getWriter().println("<h1>No Quarter</h1>");
-//        response.getWriter().println("session=" + request.getSession(true).getId());
-		
 		request.getRequestDispatcher("/framezap.jsp").forward(request, response);
 	
 	}
@@ -68,4 +71,22 @@ public class InitServlet extends HttpServlet {
 		this.doGet(request, response);
 	}
 
+	/*
+	 * The log initialization happens with the assumption that a system property is set/passed during startup.
+	 * Each app (ex: framezap/nova) can have its own log folders set. 
+	 */
+	private void initLog() {
+		String appDir = System.getProperty(BootstrapInitializer.JAVA_SYS_ARG_APP_HOME_DIR);
+		
+		// Do nothing, so logging is not initialized and will log to the console (logback's default way)
+		if (StringUtils.isNullOrEmpty(appDir))
+			return;
+		
+		// The log config for framezap will be in config folder.
+		String logDir = OSUtils.appendFolderSeparator(appDir) + "config" + OSUtils.folderSeparator();
+		
+		// For framezap we will asume that the log configuration file is also located in the config directory.
+		String logConfigFile = logDir + FRAMEZAP_LOGBACK_CONFIG_FILE;
+		LogUtils.initLogFromConfigFile(logConfigFile);
+	}
 }
