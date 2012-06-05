@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.pixelsimple.appcore.queue.QueueService;
 import com.pixelsimple.transcoder.Handle;
 import com.pixelsimple.transcoder.TranscodeStatus;
-import com.pixelsimple.transcoder.queue.TranscoderQueue;
 
 /**
  * Servlet implementation class FileServlet
@@ -50,7 +50,7 @@ public class TranscodingFileServlet extends AbstractServletHelper {
 		String handleId = (String) request.getParameter("handleId");
 		
 		Handle handle = new Handle(handleId);
-		TranscodeStatus status = TranscoderQueue.peek(handle);
+		TranscodeStatus status = QueueService.getQueue().peek(handle);
 		
 		if (status == null) {
 			// Sleep for 1s, so that status could be init
@@ -59,7 +59,7 @@ public class TranscodingFileServlet extends AbstractServletHelper {
 			} catch (InterruptedException e) {
 				LOG.error("{}", e);
 			}
-			status = TranscoderQueue.peek(handle);
+			status = QueueService.getQueue().peek(handle);
 		}
 		
 		if (status == null) {
