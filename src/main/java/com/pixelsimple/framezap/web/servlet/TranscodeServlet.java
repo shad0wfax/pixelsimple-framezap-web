@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.pixelsimple.appcore.Resource;
+import com.pixelsimple.appcore.Resource.RESOURCE_TYPE;
 import com.pixelsimple.appcore.registry.GenericRegistryEntry;
 import com.pixelsimple.appcore.registry.RegistryService;
 import com.pixelsimple.commons.media.Container;
@@ -52,8 +54,9 @@ public class TranscodeServlet extends HttpServlet {
 		Map<String, Profile> profiles = entry.getEntry(TranscoderRegistryKeys.MEDIA_PROFILES);
 		
 		Profile profile = profiles.get(profileId);
+		Resource outDir = new Resource(outputFilePath, RESOURCE_TYPE.DIRECTORY);
 		
-		TranscoderOutputSpec spec = new TranscoderOutputSpec(profile, outputFilePath, outputFileName);
+		TranscoderOutputSpec spec = new TranscoderOutputSpec(profile, outDir, outputFileName);
 		
 		LOG.debug("transcode::Traget profile::{} and output file:: {}", profile,  outputFileName);
 		
@@ -63,7 +66,7 @@ public class TranscodeServlet extends HttpServlet {
 			try {
 				MediaInspector inspector = new MediaInspector();
 				Container inputMedia = null;
-				inputMedia = inspector.createMediaContainer(inputFilePath);
+				inputMedia = inspector.createMediaContainer(new Resource(inputFilePath, RESOURCE_TYPE.FILE));
 				Handle handle = null;
 				
 				if (profile.isHlsProfile()) {

@@ -3,6 +3,8 @@ package com.pixelsimple.framezap.web.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.pixelsimple.appcore.Resource;
+import com.pixelsimple.appcore.Resource.RESOURCE_TYPE;
 import com.pixelsimple.appcore.media.MediaType;
 import com.pixelsimple.appcore.mime.Mime;
 import com.pixelsimple.appcore.registry.Registrable;
@@ -50,7 +52,7 @@ public class AppUtil {
 		Container container = null;
 		
 		try {
-			container = new MediaInspector().createMediaContainer(inputFilePath);
+			container = new MediaInspector().createMediaContainer(new Resource(inputFilePath, RESOURCE_TYPE.FILE));
 			return container;
 		} catch (MediaException e) {
 			LOG.error("{}", e);
