@@ -1,3 +1,5 @@
+<%@page import="com.pixelsimple.appcore.Resource.RESOURCE_TYPE"%>
+<%@page import="com.pixelsimple.appcore.Resource"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@page import="com.pixelsimple.commons.media.Video"%>
@@ -30,7 +32,7 @@
 			} else {
 				// TODO: Son of a bitch way to do stuff. Clean this shit.
 				// TODO: Horrible assumption that media is of type Video :(. Have to fix these damn logic.
-				Video vid = new Video();
+				Video vid = new Video(new Resource(inputFile, RESOURCE_TYPE.FILE));
 				Map<String, String> atts = new HashMap<String, String>();
 				atts.put(Container.CONTAINER_FORMAT_ATTRIBUTES.filename.name(), inputFile);
 				vid.addContainerAttributes(atts);
@@ -88,11 +90,11 @@
  
  				<%
  					// TODO: Change the damn logic below :)
- 					if (container.getFilePathWithName().endsWith(".flv") || container.getFilePathWithName().endsWith(".f4v")) {
+ 					if (container.getMediaResource().getResourceAsString().endsWith(".flv") || container.getMediaResource().getResourceAsString().endsWith(".f4v")) {
  				%>
  					<jsp:include page="static_media_flash_fragment.jsp" flush="true"></jsp:include>
 				<%
-					} else if (container.getFilePathWithName().endsWith(".m3u8")) {
+					} else if (container.getMediaResource().getResourceAsString().endsWith(".m3u8")) {
 		 		%>
 	 				<jsp:include page="static_media_hls_fragment.jsp" flush="true"></jsp:include>
 				<%
