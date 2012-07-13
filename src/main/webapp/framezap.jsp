@@ -128,7 +128,7 @@
 					Attempting to stream...(works for webm / ogg transcodes on Chrome and Firefox)
 				</p>
 				<p>
-				
+				<%--
 					<div class="older-entries">    
 							<div class="entry"> 
 							
@@ -160,7 +160,7 @@
 								
 							</div> 
 					</div> 
-				
+				--%>
 				</p>
 				
 				
